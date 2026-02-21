@@ -1,5 +1,6 @@
 import streamlit as st
 from resume_analyzer import ResumeAnalyzer
+import time
 
 st.info("🚀 Beta Version -- Free Resume Reviewes for Early Users")
 
@@ -9,6 +10,9 @@ st.set_page_config(
     layout="centered"
 )
 
+if "last_call" not in st.session_state:
+    st.session_state.last_call = 0
+
 st.title("AI Resume Analyzer")
 st.markdown("### Optimize your resume for better job matches")
 st.markdown("Upload your resume and job description to get instant insights.")
@@ -17,7 +21,6 @@ st.divider()
 
 resume_file = st.file_uploader("Upload Resume (.pdf or .txt)", type=["pdf", "txt"])
 job_file = st.file_uploader("Upload Job Description (.pdf or .txt)", type=["pdf", "txt"])
-
 
 if resume_file and job_file:
     resume_path = f"temp_resume.{resume_file.name.split('.')[-1]}"
@@ -46,6 +49,13 @@ if resume_file and job_file:
         st.write(",".join(sorted(missing)))
     
     if st.button("Get Full AI Review"):
+        current_time = time.time()
+
+        if current_time - st.session_state.last_call < 10:
+            st.warning("Please wait a few seconds before trying again.")
+        else:
+            st.session_state.last_call = current_time
+
         with st,spinner("Generating full AI review..."):
             feedback = analyzer.analyze_resume_with_ai()
 
@@ -64,6 +74,13 @@ if st.button("Improve Bullet"):
     if not bullet.strip():
         st.warning("Please enter a bullet point.`")
     else:
+        current_time = time.time()
+
+        if current_time - st.session_state.last_call < 10:
+            st.warning("Please wait a few seconds before trying again.")
+        else:
+            st.session_state.last_call = current_time
+
         with st.spinner("Improving bullet..."):
             analyzer = ResumeAnalyzer("", "")
             improved = analyzer.improve_bullet_point(bullet)

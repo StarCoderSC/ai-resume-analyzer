@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 import re
 from openai import OpenAI
+from openai import RateLimitError
 import pdfplumber
 import os
 

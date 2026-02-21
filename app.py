@@ -31,7 +31,7 @@ job_file = st.file_uploader("Upload Job Description (.pdf or .txt)", type=["pdf"
 
 if resume_file and job_file:
     resume_path = f"temp_resume.{resume_file.name.split('.')[-1]}"
-    job_path = f"temp_job.{job_file.name.split('.')[[-1]]}"
+    job_path = f"temp_job.{job_file.name.split('.')[-1]}"
 
     with open(resume_path, "wb") as f:
         f.write(resume_file.read())

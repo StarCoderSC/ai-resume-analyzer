@@ -47,7 +47,7 @@ if resume_file and job_file:
             score, matched, missing = analyzer.calculate_basic_match()
         st.subheader("Match Score")
         st.progress(int(score))
-        st.metrics(label="Match Score", value=f"{score}%")
+        st.metric(label="Match Score", value=f"{score}%")
 
         st.subheader("Matched skills")
         st.write(",".join(sorted(matched)))

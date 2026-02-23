@@ -47,7 +47,7 @@ access_code = st.text_input("Enter Premium access code (if any)", type="password
 if st.button("Reedem Code"):
     if access_code in PREMIUM_CODES:
         st.session_state.is_premium = True
-        at.success("Premium access activated")
+        st.success("Premium access activated")
     else:
         st.error("Invalid access code")
 

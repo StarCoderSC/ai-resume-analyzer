@@ -39,7 +39,7 @@ if "last_call" not in st.session_state:
 if "ai_usage" not in st.session_state:
     st.session_state.ai_usage = 0
 
-if "is_premium" not in session_state:
+if "is_premium" not in st.session_state:
     st.session_state.is_premium = False
 
 access_code = st.text_input("Enter Premium access code (if any)", type="password")

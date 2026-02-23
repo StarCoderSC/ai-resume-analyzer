@@ -53,6 +53,7 @@ if st.button("Reedem Code"):
 
 if st.session_state.is_premium:
     st.info("Premium Mode Active")
+    st.caption("Premium removes AI usage limits for this session.")
 
 
 def can_use_ai():

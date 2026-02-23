@@ -3,6 +3,8 @@ from resume_analyzer import ResumeAnalyzer
 import time
 import streamlit.components.v1 as components
 
+PREMIUM_CODES = st.secrets["PREMIUM_CODES"]
+
 st.info("🚀 Beta Version -- Free Resume Reviews for Early Users")
 
 st.set_page_config(
@@ -37,11 +39,24 @@ if "last_call" not in st.session_state:
 if "ai_usage" not in st.session_state:
     st.session_state.ai_usage = 0
 
+if "is_premium" not in session_state:
+    st.session_state.is_premium = False
+
 access_code = st.text_input("Enter Premium access code (if any)", type="password")
-PREMIUM_CODES = st.secrets["PREMIUM_CODES"]
+
+if st.button("Reedem Code"):
+    if access_code in PREMIUM_CODES:
+        st.session_state.is_premium = True
+        at.success("Premium access activated")
+    else:
+        st.error("Invalid access code")
+
+if st.session_state.is_premium:
+    st.info("Premium Mode Active")
+
 
 def can_use_ai():
-    if access_code in PREMIUM_CODES:
+    if st.session_state.is_premium:
         return True
     if st.session_state.ai_usage < 5:
         return True
